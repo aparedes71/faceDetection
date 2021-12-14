@@ -24,12 +24,15 @@ RECT_THICKNESS = 2
 
 def face_detection(gray_img, img):
     faces = face_cascade.detectMultiScale(gray_img,1.3,5)
-    eyes = eye_cascade.detectMultiScale(gray_img,1.3,5)
+    # eyes = eye_cascade.detectMultiScale(gray_img,1.3,5)
 
     for x,y,w,h in faces:
         cv.rectangle(img, (x,y), (x+w,y+h), FACE_RECT_COLOR, RECT_THICKNESS)
-    for x,y,w,h in eyes:
-        cv.rectangle(img, (x,y), (x+w,y+h), EYE_RECT_COLOR, RECT_THICKNESS)
+        face_patch_gray = gray_img[y:y+h,x:x+w]
+        face_patch = img[y:y+h,x:x+w]
+        eyes = eye_cascade.detectMultiScale(face_patch_gray,1.3,5)
+        for ex,ey,ew,eh in eyes:
+            cv.rectangle(face_patch, (ex,ey), (ex+ew,ey+eh), EYE_RECT_COLOR, RECT_THICKNESS)
 
 
 
