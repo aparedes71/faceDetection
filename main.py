@@ -69,7 +69,7 @@ if(args.video):
     
 else:
     img = cv.imread(media_path,cv.IMREAD_COLOR)
-    gray_img = cv.cvtColor(img,cv.IMREAD_GRAYSCALE)
+    gray_img = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
     print("Image being processed")
     face_detection(gray_img,img)
 
